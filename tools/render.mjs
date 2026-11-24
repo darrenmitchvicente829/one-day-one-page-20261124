@@ -1,7 +1,10 @@
 // Build step, not part of what the grader runs: draws page/index.html in headless Chromium and saves it as
 // entry.png, 1024 by 1024, then checks the picture against the contest's limits.
 //
-//   PLAYWRIGHT_CORE=/path/to/playwright-core/index.mjs node tools/render.mjs [--out entry.png] [--thumb small.png]
+//   node tools/render.mjs [--out entry.png] [--thumb small.png]
+//
+// It needs the playwright-core package and its Chromium installed where Node resolves packages from (a
+// node_modules folder in this repository or in a folder above it). Nothing here runs in the grader.
 //
 // It fails (exit 1) when any text does not fit its box, when the page throws, or when the PNG breaks a limit,
 // so a clipped headline cannot reach the committed image unnoticed.
@@ -10,6 +13,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { chromium } from 'playwright-core';
 
 const SIDE = 1024;
 const MAX_BYTES = 1048576;
@@ -23,7 +27,6 @@ const option = (name, fallback) => {
 const out = resolve(option('--out', join(root, 'entry.png')));
 const thumb = option('--thumb', '');
 
-const { chromium } = await import(process.env.PLAYWRIGHT_CORE || 'playwright-core');
 const browser = await chromium.launch();
 const problems = [];
 

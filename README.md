@@ -42,10 +42,11 @@ therefore drawn ahead of time and committed, and `main.ts` only copies it.
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-To redraw the image after changing the page (needs `playwright-core` and its Chromium):
+To redraw the image after changing the page (needs the `playwright-core` package and its Chromium, installed
+where Node can resolve them):
 
 ```sh
-PLAYWRIGHT_CORE=/path/to/playwright-core/index.mjs node tools/render.mjs
+node tools/render.mjs
 ```
 
 ---
