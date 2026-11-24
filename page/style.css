@@ -1,0 +1,174 @@
+/* One page, 1024 by 1024. Every block has a fixed place so nothing can push anything else off the page;
+   tools/render.mjs reports any text that does not fit its box. Fonts are ones the build machine has. */
+:root {
+  --ink: #141c2b;
+  --navy: #12203c;
+  --paper: #f6f1e6;
+  --card: #fffdf8;
+  --rule: #d5ccb9;
+  --red: #b3261e;
+  --gold: #f2c14e;
+  --soft: #4d5768;
+  --serif: 'C059', 'DejaVu Serif', serif;
+  --sans: 'DejaVu Sans Condensed', 'DejaVu Sans', sans-serif;
+  --caps: 'DejaVu Sans', 'DejaVu Sans Condensed', sans-serif;
+  --narrow: 'Nimbus Sans Narrow', 'DejaVu Sans Condensed', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 1024px;
+  height: 1024px;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  text-rendering: geometricPrecision;
+}
+
+#page { position: relative; width: 1024px; height: 1024px; overflow: hidden; }
+
+/* ---------- masthead ---------- */
+
+.strip {
+  position: absolute; left: 0; top: 0; width: 1024px; height: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 12px; background: var(--navy); color: #fff;
+  font: 700 10.5px/20px var(--caps); letter-spacing: .9px; white-space: nowrap;
+}
+.strip .right { color: var(--gold); }
+
+.date {
+  position: absolute; left: 0; top: 17px; width: 1024px; height: 80px;
+  text-align: center; white-space: nowrap; color: var(--navy);
+  font: 700 72px/80px var(--serif); letter-spacing: -1px;
+}
+
+.deck {
+  position: absolute; left: 12px; top: 96px; width: 1000px; height: 22px;
+  text-align: center; white-space: nowrap; overflow: hidden; color: var(--red);
+  font: italic 700 16.5px/22px var(--serif);
+}
+
+.regions { position: absolute; left: 12px; top: 121px; width: 1000px; height: 19px; display: flex; gap: 3px; }
+.regions div {
+  flex: 1 1 auto; padding: 0 4px; border-radius: 2px; color: #fff; text-align: center; white-space: nowrap;
+  font: 700 9.6px/19px var(--caps); letter-spacing: .4px;
+}
+
+.timeline {
+  position: absolute; left: 12px; top: 143px; width: 1000px; height: 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 8px; border-radius: 2px; background: var(--navy); color: #fff; white-space: nowrap;
+  font: 10.5px/22px var(--sans);
+}
+.timeline .chip {
+  padding: 0 5px; border-radius: 2px; background: #fff; color: var(--navy);
+  font: 700 9.4px/14px var(--caps); letter-spacing: .5px;
+}
+.timeline .chip.later { background: #9fd3ff; }
+.timeline b { margin-right: 4px; color: var(--gold); font-weight: 700; }
+.timeline .later b { color: #9fd3ff; }
+
+.numbers {
+  position: absolute; left: 12px; top: 168px; width: 1000px; height: 36px; display: flex;
+  border-top: 2px solid var(--navy); border-bottom: 1px solid var(--rule);
+}
+.numbers .title { width: 72px; padding-top: 5px; color: var(--navy); font: 700 9.5px/12px var(--caps); letter-spacing: .6px; }
+.numbers .n { flex: 1 1 0; padding: 1px 0 0 8px; border-left: 1px solid var(--rule); overflow: hidden; }
+.numbers .n b { display: block; color: var(--red); font: 700 18px/19px var(--serif); }
+.numbers .n span { display: block; white-space: nowrap; color: var(--ink); font: 9.6px/12px var(--sans); }
+
+/* ---------- story cards ---------- */
+
+.row { position: absolute; left: 12px; width: 1000px; display: grid; }
+.leads { top: 209px; height: 214px; grid-template-columns: repeat(3, 1fr); column-gap: 10px; }
+.smalls { height: 156px; grid-template-columns: repeat(5, 1fr); column-gap: 8px; }
+.smalls.one { top: 429px; }
+.smalls.two { top: 591px; }
+
+.card { position: relative; overflow: hidden; background: var(--card); border: 1px solid var(--rule); border-top: 3px solid var(--navy); }
+
+.art { position: relative; height: 88px; overflow: hidden; }
+.small .art { height: 56px; }
+.art svg { display: block; width: 100%; height: 100%; }
+
+.where {
+  position: absolute; left: 4px; top: 4px; display: flex; align-items: center;
+  padding-right: 6px; border-radius: 2px; background: rgba(16, 24, 40, .93); color: #fff; white-space: nowrap;
+  font: 700 9.5px/15px var(--caps); letter-spacing: .5px;
+}
+.where b { min-width: 16px; height: 15px; margin-right: 5px; padding: 0 3px; border-radius: 2px 0 0 2px; text-align: center; font: 700 10px/15px var(--caps); }
+.small .where { padding-right: 5px; font-size: 8.6px; letter-spacing: .2px; }
+.small .where b { margin-right: 4px; }
+
+.tag {
+  display: inline-block; padding: 0 5px; border-radius: 2px; color: #fff; white-space: nowrap;
+  font: 700 8.6px/13px var(--caps); letter-spacing: .5px;
+}
+.tag-confirmed { background: #1e7d4f; }
+.tag-official { background: #1d4e89; }
+.tag-reported { background: #5d6470; }
+.tag-claim { background: #c2410c; }
+
+.txt { padding: 5px 8px 0; }
+.small .txt { padding: 4px 6px 0; }
+
+/* Region and field on the left, how sure we are on the right. */
+.kicker { display: flex; justify-content: space-between; align-items: center; height: 13px; overflow: hidden; white-space: nowrap; }
+.kicker span:first-child { font: 700 9px/13px var(--caps); letter-spacing: .5px; }
+.small .kicker span:first-child { font: 700 8.6px/13px var(--sans); letter-spacing: .1px; }
+.small .kicker .tag { padding: 0 4px; font-size: 8px; line-height: 12px; letter-spacing: .3px; }
+
+.card h2 { height: 46px; margin-top: 1px; overflow: hidden; color: var(--ink); font: 700 20.5px/23px var(--serif); letter-spacing: -.1px; }
+.small h2 { height: 35px; font: 700 15px/17.5px var(--serif); letter-spacing: 0; }
+
+.card p { height: 40.5px; margin-top: 3px; overflow: hidden; color: #222b3a; font: 11px/13.5px var(--sans); }
+.small p { height: 39px; margin-top: 2px; font: 10.5px/13px var(--sans); }
+.small p i { color: var(--soft); font-style: normal; white-space: nowrap; }
+
+.src { margin-top: 2px; overflow: hidden; white-space: nowrap; color: var(--soft); font: 9.5px/12px var(--sans); }
+
+/* ---------- the "also" list and the map ---------- */
+
+.h3 { height: 17px; border-bottom: 2px solid var(--navy); color: var(--navy); white-space: nowrap; font: 700 11px/14px var(--caps); letter-spacing: .8px; }
+.h3 small { margin-left: 8px; color: var(--soft); font: 400 9.6px/14px var(--sans); letter-spacing: 0; }
+
+.also { position: absolute; left: 12px; top: 753px; width: 690px; height: 204px; }
+.also ol {
+  display: grid; grid-auto-flow: column; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(7, 26px);
+  column-gap: 10px; margin-top: 3px; list-style: none;
+}
+.also li { position: relative; height: 26px; padding-left: 21px; overflow: hidden; }
+.also .num {
+  position: absolute; left: 0; top: 1px; width: 17px; height: 13px; border-radius: 2px; color: #fff; text-align: center;
+  font: 700 9px/13px var(--caps);
+}
+.also li.due .num { background: #fff !important; border: 1.4px solid; line-height: 10.2px; }
+.also .l1 { overflow: hidden; white-space: nowrap; color: var(--ink); font: 700 12px/13.5px var(--narrow); }
+.also .l1 em { font-style: normal; }
+.also .l2 { overflow: hidden; white-space: nowrap; color: #3d4758; font: 11px/12.5px var(--narrow); }
+.also .l2 b { font: 700 9.2px/12.5px var(--caps); letter-spacing: .2px; }
+
+.mapbox { position: absolute; left: 714px; top: 753px; width: 298px; height: 204px; }
+.mapbox svg.map { display: block; margin-top: 3px; }
+.mapkey { margin-top: 2px; overflow: hidden; white-space: nowrap; color: #3d4758; font: 9.6px/12px var(--sans); }
+.mapkey svg { vertical-align: -2px; }
+.howsure { margin-top: 3px; }
+.howsure div { overflow: hidden; white-space: nowrap; color: #222b3a; font: 9.6px/13px var(--sans); }
+.howsure .tag { width: 64px; margin-right: 5px; text-align: center; font-size: 8.2px; line-height: 11px; }
+
+/* ---------- date check ---------- */
+
+.check {
+  position: absolute; left: 12px; top: 962px; width: 1000px; height: 58px;
+  padding: 3px 8px 0; border: 1.5px solid var(--red); border-radius: 3px; background: #fffaf3;
+}
+.check .rule { overflow: hidden; white-space: nowrap; color: var(--ink); font: 700 10.6px/13.5px var(--sans); }
+.check .lab {
+  display: inline-block; margin-right: 7px; padding: 0 6px; border-radius: 2px; background: var(--red); color: #fff;
+  font: 700 9.4px/12.5px var(--caps); letter-spacing: .7px;
+}
+.check p { height: 37.8px; overflow: hidden; color: #222b3a; font: 10.4px/12.6px var(--sans); }
+.check p b { color: var(--red); font-weight: 700; }
