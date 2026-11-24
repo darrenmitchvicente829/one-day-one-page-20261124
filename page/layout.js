@@ -32,12 +32,8 @@
   add('regions', D.regions.filter((r) => inRegion(r.key) > 0)
     .map((r) => `<div style="background:${r.color}">${esc(r.name)} ${inRegion(r.key)}</div>`).join(''));
 
-  let seenLater = false;
-  add('timeline', `<span class="chip">UTC</span>` + D.timeline.map((e) => {
-    const flag = e.later && !seenLater ? `<span class="chip later">LATER</span>` : '';
-    if (e.later) seenLater = true;
-    return `${flag}<span class="${e.later ? 'later' : ''}"><b>${esc(e.t)}</b>${esc(e.text)}</span>`;
-  }).join(''));
+  add('timeline', `<span class="chip">UTC</span>` +
+    D.timeline.map((e) => `<span><b>${esc(e.t)}</b>${esc(e.text)}</span>`).join(''));
 
   add('numbers', `<div class="title">THE DAY IN<br>NUMBERS</div>` +
     D.numbers.map((x) => `<div class="n"><b>${esc(x.n)}</b><span>${esc(x.label)}</span></div>`).join(''));
@@ -66,10 +62,7 @@
     `<small>${listed.length} more stories · numbers run on from the cards</small></div><ol>` +
     listed.map((s) => {
       const r = region[s.region];
-      const num = s.due
-        ? `<b class="num" style="color:${r.color};border-color:${r.color}">${s.id}</b>`
-        : `<b class="num" style="background:${r.color}">${s.id}</b>`;
-      return `<li class="${s.due ? 'due' : ''}">${num}` +
+      return `<li><b class="num" style="background:${r.color}">${s.id}</b>` +
         `<div class="l1"><em style="color:${r.color}">${esc(s.place)}:</em> ${esc(s.head)}</div>` +
         `<div class="l2"><b style="color:${r.color}">${esc(s.field)}</b> · ${esc(s.detail)} · ${esc(s.src)}</div></li>`;
     }).join('') + `</ol>`);
@@ -80,12 +73,8 @@
   const X = (lon) => (((lon + 180) / 360) * W).toFixed(1);
   const Y = (lat) => (((WORLD.top - lat) / (WORLD.top - WORLD.bottom)) * H).toFixed(1);
   const land = WORLD.land.map((ring) => `<polygon points="${ring.map(([lon, lat]) => X(lon) + ',' + Y(lat)).join(' ')}"/>`).join('');
-  const dots = listed.filter((s) => s.lon != null).map((s) => {
-    const c = region[s.region].color;
-    return s.due
-      ? `<circle cx="${X(s.lon)}" cy="${Y(s.lat)}" r="2.6" fill="#fff" stroke="${c}" stroke-width="1.5"/>`
-      : `<circle cx="${X(s.lon)}" cy="${Y(s.lat)}" r="3" fill="${c}" stroke="#fff" stroke-width=".9"/>`;
-  }).join('');
+  const dots = listed.filter((s) => s.lon != null).map((s) =>
+    `<circle cx="${X(s.lon)}" cy="${Y(s.lat)}" r="3" fill="${region[s.region].color}" stroke="#fff" stroke-width=".9"/>`).join('');
   const pins = cards.map((s) =>
     `<circle cx="${X(s.lon)}" cy="${Y(s.lat)}" r="6.6" fill="${region[s.region].color}" stroke="#fff" stroke-width="1.3"/>` +
     `<text x="${X(s.lon)}" y="${(Number(Y(s.lat)) + 3.1).toFixed(1)}" text-anchor="middle" font-family="DejaVu Sans, sans-serif" ` +
@@ -96,8 +85,7 @@
     `<rect width="${W}" height="${H}" fill="#d9e9f2"/><g fill="#b8c2a6" stroke="#8e9a7f" stroke-width=".5">${land}</g>${dots}${pins}` +
     `<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" fill="none" stroke="#b7ad98"/></svg>` +
     `<div class="mapkey">${keyDot('<circle cx="6" cy="6" r="5.2" fill="#12203c"/>')} 1–${cards.length} pictured stories &nbsp; ` +
-    `${keyDot('<circle cx="6" cy="6" r="3" fill="#12203c"/>')} ${cards.length + 1}–${stories.length} listed &nbsp; ` +
-    `${keyDot('<circle cx="6" cy="6" r="2.8" fill="#fff" stroke="#12203c" stroke-width="1.5"/>')} due later today</div>` +
+    `${keyDot('<circle cx="6" cy="6" r="3" fill="#12203c"/>')} ${cards.length + 1}–${stories.length} listed, coloured by region</div>` +
     `<div class="howsure">` + D.legend.map((l) =>
       `<div><span class="tag tag-${l.tag.toLowerCase()}">${l.tag}</span>${esc(l.text)}</div>`).join('') + `</div>`);
 

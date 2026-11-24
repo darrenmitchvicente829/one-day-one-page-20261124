@@ -13,14 +13,16 @@ bounty: the world's news of Tuesday 24 November 2026 as a single 1024 by 1024 fr
 
 - The date, as large as the page allows, and a one-line deck of the three lead stories.
 - 34 stories from nine regions: 13 with a picture drawn for them, 21 more in a numbered list.
-- A strip of the day in UTC, six numbers from the day, and a map with a pin for every pictured story.
+- A strip of the day in UTC, from Seoul's opening bell to Wall Street's close, six numbers from the day, and a
+  map with a pin for every pictured story.
 - A tag on every pictured story saying how sure it is (confirmed, official, reported, or one side's claim),
   and the outlet behind every listed one.
 - A date check: the rule each story had to pass, and the Monday and weekend stories left out because of it.
 
 Every story is dated Tuesday 24 November 2026, by UTC or by the local date where it happened.
-[SOURCES.md](SOURCES.md) lists the reports behind each one. The first edition went to press at 07:30 UTC,
-so events still to come that day are marked as due, not reported as done.
+[SOURCES.md](SOURCES.md) lists the reports behind each one. This is the full-day edition, closed at 22:30 UTC:
+results, verdicts and market closes are in, and nothing on the page is still waiting to happen. It replaces
+the first edition, which went to press at 07:30 UTC.
 
 ## How it is made
 

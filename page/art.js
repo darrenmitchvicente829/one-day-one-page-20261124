@@ -1,6 +1,6 @@
 // The pictures: one small flat scene per illustrated story, drawn here as SVG. No photographs, no outside art.
 // Lead scenes use a 327 x 92 box and the smaller cards a 194 x 56 box. The top-left corner of every scene is
-// kept quiet because the card puts the story number and place there, and the bottom-right carries its tag.
+// kept quiet because the card puts the story number and place there.
 (function () {
   const FONT = 'DejaVu Sans, sans-serif';
 
@@ -49,7 +49,7 @@
     `<polygon points="0,40 0,22 30,18 62,26 98,21 132,32 158,40" fill="#3b302b"/>` +
     `<polygon points="327,92 236,92 256,77 288,69 327,63" fill="#2c2420"/>` +
     tanker(40, 60) + tanker(142, 74) + tanker(226, 56) + mine(118, 84) + mine(212, 86) +
-    `<rect x="215" y="5" width="106" height="15" rx="2" fill="#a5281b"/>` + label(268, 15.6, '3 TANKERS ABLAZE', { anchor: 'middle' }));
+    `<rect x="169" y="5" width="152" height="15" rx="2" fill="#a5281b"/>` + label(245, 15.6, 'IRAN: 3 TANKERS ABLAZE', { anchor: 'middle' }));
 
   // 2. Asia's markets: three green bars for the day's gains beside an AI chip.
   const bar = (x, h, value, city) =>
@@ -57,7 +57,7 @@
     label(x + 22, 76 - h - 4, value, { size: 13, anchor: 'middle' }) + label(x + 22, 87, city, { size: 9, anchor: 'middle', fill: '#dbe4f0' });
   const markets = () => frame(327, 92,
     `<rect width="327" height="92" fill="#0f1b33"/><path d="M0 36H327M0 56H327M0 76H327" stroke="#22335c" stroke-width="1"/>` +
-    bar(26, 40, '+9%', 'TAIPEI') + bar(100, 31, '+7%', 'SEOUL') + bar(174, 18, '+4%', 'TOKYO') +
+    bar(26, 40, '+9%', 'TAIPEI') + bar(100, 28, '+6%', 'SEOUL') + bar(174, 17, '+4%', 'TOKYO') +
     `<g fill="#f2c14e"><rect x="250" y="26" width="46" height="46" rx="4"/>` +
     [0, 1, 2, 3].map((i) => `<rect x="${257 + i * 9.5}" y="20" width="4" height="6"/><rect x="${257 + i * 9.5}" y="72" width="4" height="6"/>` +
       `<rect x="244" y="${33 + i * 9.5}" width="6" height="4"/><rect x="296" y="${33 + i * 9.5}" width="6" height="4"/>`).join('') + `</g>` +
@@ -87,7 +87,57 @@
 
   // ---------------------------------------------------------------- small scenes, 194 x 56
 
-  // 4. Ulleung: warplanes over the sea, the island and a red alert.
+  // 4. Senegal: the flag, the cup and the score the court put back on the board.
+  const senegal = () => frame(194, 56,
+    `<rect width="194" height="56" fill="#1f6f3d"/>` +
+    [0, 2, 4, 6].map((i) => `<rect x="${i * 28}" width="28" height="56" fill="#237a44"/>`).join('') +
+    `<circle cx="66" cy="60" r="24" fill="none" stroke="#fff" stroke-width="1.2" opacity=".4"/>` +
+    `<rect x="10" y="22" width="10" height="20" fill="#00853f"/><rect x="20" y="22" width="10" height="20" fill="#fdef42"/>` +
+    `<rect x="30" y="22" width="10" height="20" fill="#e31b23"/>` + spikes(25, 32, 3.6, '#00853f') +
+    `<rect x="9.5" y="21.5" width="31" height="21" fill="none" stroke="#fff" stroke-width="1"/>` +
+    `<path d="M56 21H76V26A10 10 0 0 1 56 26Z" fill="#f2c14e"/>` +
+    `<path d="M56 23H51A6 6 0 0 0 57 31M76 23H81A6 6 0 0 1 75 31" fill="none" stroke="#f2c14e" stroke-width="2.2"/>` +
+    `<rect x="64" y="35" width="4" height="8" fill="#d9a531"/><rect x="58" y="43" width="16" height="5" rx="1" fill="#c9972b"/>` +
+    `<rect x="92" y="19" width="96" height="32" rx="3" fill="#101820"/>` +
+    label(140, 32.5, 'SENEGAL 1–0', { size: 11.5, anchor: 'middle' }) +
+    label(140, 45, 'TITLE RESTORED', { size: 8.8, anchor: 'middle', fill: '#f2c14e' }));
+
+  // 5. New York: the courthouse and the count of the verdict.
+  const huawei = () => frame(194, 56,
+    `<rect width="194" height="56" fill="#1c2541"/>` +
+    `<polygon points="8,29 42,17 76,29" fill="#e3e8f1"/><rect x="10" y="29" width="64" height="4" fill="#cfd6e4"/>` +
+    [0, 1, 2, 3, 4].map((i) => `<rect x="${14 + i * 13}" y="33" width="5" height="15" fill="#e3e8f1"/>`).join('') +
+    `<rect x="8" y="48" width="68" height="3.5" fill="#cfd6e4"/><rect x="4" y="51.5" width="76" height="4.5" fill="#aab4c8"/>` +
+    `<circle cx="42" cy="24.5" r="2.4" fill="#1c2541"/>` +
+    `<rect x="90" y="19" width="98" height="32" rx="3" fill="#a5281b"/>` +
+    label(139, 32.5, 'GUILTY ON 10', { size: 11, anchor: 'middle' }) +
+    label(139, 45, 'OF 12 COUNTS', { size: 11, anchor: 'middle' }));
+
+  // 6. Gaza: tents, a small police post, a drone overhead and the blast.
+  const gaza = () => frame(194, 56,
+    `<rect width="194" height="56" fill="#3a4162"/><rect y="31" width="194" height="6" fill="#c98b5e" opacity=".75"/>` +
+    `<rect y="37" width="194" height="19" fill="#b89a6a"/>` +
+    `<polygon points="8,46 20,32 32,46" fill="#e9e2cf"/><polygon points="30,48 41,35 52,48" fill="#d9cfb4"/><polygon points="0,52 9,41 18,52" fill="#efe9d8"/>` +
+    `<path d="M20 32V46M41 35V48" stroke="#a89f86" stroke-width="1"/>` +
+    `<rect x="94" y="28" width="46" height="17" fill="#a3a9b0"/><rect x="92" y="26" width="50" height="3" fill="#6b7280"/>` +
+    `<rect x="94" y="31.5" width="46" height="2.5" fill="#1d4e89"/><rect x="112" y="35" width="8" height="10" fill="#4a5568"/>` +
+    smoke(146, 17, 0.9, '#565c68') + spikes(136, 28, 10, '#f26b21', 8, 0.5) + spikes(136, 28, 5.5, '#ffd166', 8, 0.5) +
+    `<path d="M74 26L128 28" stroke="#fff" stroke-width="1" stroke-dasharray="3 3"/>` +
+    `<polygon points="52,24 57,21.5 72,22.5 77,19.5 77,25.5 57,26.5" fill="#dfe6ee"/><path d="M58 24.2H70" stroke="#8a93a3" stroke-width="1.6"/>`);
+
+  // 7. Uzhhorod: the two flags, the railway between them and what was agreed.
+  const uzhhorod = () => frame(194, 56,
+    `<rect width="194" height="56" fill="#e3ebf6"/><rect y="44" width="194" height="12" fill="#c9d3e3"/>` +
+    `<path d="M0 47H194M0 52H194" stroke="#5b6577" stroke-width="1.3"/>` +
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((i) => `<rect x="${3 + i * 12.4}" y="46" width="3" height="7" fill="#7a5a3c"/>`).join('') +
+    `<path d="M12 20V46M182 20V46" stroke="#5b6577" stroke-width="1.6"/>` +
+    `<rect x="13" y="21" width="32" height="9.5" fill="#0057b7"/><rect x="13" y="30.5" width="32" height="9.5" fill="#ffd700"/>` +
+    `<rect x="149" y="21" width="32" height="6.4" fill="#ce2939"/><rect x="149" y="27.4" width="32" height="6.3" fill="#fff"/>` +
+    `<rect x="149" y="33.7" width="32" height="6.3" fill="#477050"/>` +
+    `<rect x="52" y="21" width="90" height="19" rx="3" fill="#12203c"/>` +
+    label(97, 29.6, 'DEALS ON GAS,', { size: 8.2, anchor: 'middle' }) + label(97, 37.6, 'DIESEL AND RAIL', { size: 8.2, anchor: 'middle' }));
+
+  // 8. Ulleung: warplanes over the sea, the island and a red alert.
   const plane = (x, y) =>
     `<polygon points="${x},${y + 3} ${x + 6},${y + 2} ${x + 3},${y - 3} ${x + 6},${y - 3} ${x + 11},${y + 2} ${x + 18},${y + 3} ` +
     `${x + 11},${y + 4} ${x + 6},${y + 9} ${x + 3},${y + 9} ${x + 6},${y + 4}" fill="#33415c"/>`;
@@ -99,7 +149,7 @@
     plane(14, 24) + plane(42, 29) + plane(70, 23) +
     `<rect x="146" y="26" width="44" height="13" rx="2.5" fill="#c0392b"/>` + label(168, 35.6, 'ALERT', { size: 9, anchor: 'middle' }));
 
-  // 5. Jiuquan: the rocket on its pad between the two flags.
+  // 9. Jiuquan: the rocket on its pad between the two flags.
   const jiuquan = () => frame(194, 56,
     `<rect width="194" height="56" fill="#f6dfb3"/><rect y="43" width="194" height="13" fill="#c9a56a"/>` +
     `<polygon points="0,43 40,39 86,43" fill="#d8b77c"/>` +
@@ -113,7 +163,7 @@
     `<circle cx="152.5" cy="30" r="5" fill="#fff"/><circle cx="154" cy="29" r="4.2" fill="#01411c"/>` + spikes(155.6, 27.6, 1.9, '#fff') +
     label(8, 53, 'SHENZHOU-24', { fill: '#3b2a12' }));
 
-  // 6. Canberra: a phone, a gavel and the size of the fine.
+  // 10. Canberra: a phone, a gavel and the size of the fine.
   const canberra = () => frame(194, 56,
     `<rect width="194" height="56" fill="#d9efe6"/>` +
     `<rect x="14" y="20" width="22" height="33" rx="3" fill="#1b2333"/><rect x="16.5" y="23.5" width="17" height="25" fill="#f8fafc"/>` +
@@ -123,7 +173,7 @@
     `<polygon points="74,17 92,29 86,38 68,26" fill="#5c3a1e"/><rect x="48" y="50" width="24" height="4" rx="1" fill="#5c3a1e"/>` +
     label(142, 15, 'FINES UP TO', { size: 9, anchor: 'middle', fill: '#1b2333' }) + label(142, 40, '5%', { size: 27, anchor: 'middle', fill: '#b3261e' }));
 
-  // 7. Villavicencio: a columned government building at night, one end blown out, a burnt car beside it.
+  // 11. Villavicencio: a columned government building at night, one end blown out, a burnt car beside it.
   const villavicencio = () => frame(194, 56,
     `<rect width="194" height="56" fill="#2b2d42"/>` +
     `<path d="M18 22V48" stroke="#9aa0a6" stroke-width="1.4"/><rect x="19" y="22" width="15" height="5" fill="#fcd116"/>` +
@@ -136,19 +186,7 @@
     `<polygon points="158,48 161,42 168,40 177,40 183,43 187,48" fill="#101116"/><circle cx="164" cy="48" r="2.6" fill="#000"/><circle cx="181" cy="48" r="2.6" fill="#000"/>` +
     fire(164, 41, 0.55) + `<rect y="48.5" width="194" height="7.5" fill="#17181f"/>`);
 
-  // 8. Khan Younis: tents, a small police post, a drone overhead and the blast.
-  const khanyounis = () => frame(194, 56,
-    `<rect width="194" height="56" fill="#3a4162"/><rect y="31" width="194" height="6" fill="#c98b5e" opacity=".75"/>` +
-    `<rect y="37" width="194" height="19" fill="#b89a6a"/>` +
-    `<polygon points="8,46 20,32 32,46" fill="#e9e2cf"/><polygon points="30,48 41,35 52,48" fill="#d9cfb4"/><polygon points="0,52 9,41 18,52" fill="#efe9d8"/>` +
-    `<path d="M20 32V46M41 35V48" stroke="#a89f86" stroke-width="1"/>` +
-    `<rect x="94" y="28" width="46" height="17" fill="#a3a9b0"/><rect x="92" y="26" width="50" height="3" fill="#6b7280"/>` +
-    `<rect x="94" y="31.5" width="46" height="2.5" fill="#1d4e89"/><rect x="112" y="35" width="8" height="10" fill="#4a5568"/>` +
-    smoke(146, 17, 0.9, '#565c68') + spikes(136, 28, 10, '#f26b21', 8, 0.5) + spikes(136, 28, 5.5, '#ffd166', 8, 0.5) +
-    `<path d="M74 26L128 28" stroke="#fff" stroke-width="1" stroke-dasharray="3 3"/>` +
-    `<polygon points="52,24 57,21.5 72,22.5 77,19.5 77,25.5 57,26.5" fill="#dfe6ee"/><path d="M58 24.2H70" stroke="#8a93a3" stroke-width="1.6"/>`);
-
-  // 9. Singapore: an AI chip stopped at a striped barrier.
+  // 12. Singapore: an AI chip stopped at a striped barrier.
   const singapore = () => frame(194, 56,
     `<rect width="194" height="56" fill="#10233f"/>` +
     `<g fill="#f2c14e"><rect x="14" y="23" width="28" height="28" rx="3"/>` +
@@ -160,7 +198,7 @@
     [0, 1, 2, 3, 4, 5].map((i) => `<rect x="${121 + i * 11.4}" y="25" width="5.7" height="6.5" fill="#c0392b"/>`).join('') +
     label(124, 42, '7 FIRMS', { size: 8.8 }) + label(124, 52, 'BLACKLISTED', { size: 8.8 }));
 
-  // 10. Eastern Nepal: snow peaks, a seismograph trace and the magnitude.
+  // 13. Eastern Nepal: snow peaks, a seismograph trace and the magnitude.
   const nepal = () => frame(194, 56,
     `<rect width="194" height="56" fill="#dceaf7"/>` +
     `<polygon points="0,46 26,22 44,34 70,14 98,38 122,22 150,42 172,28 194,40 194,56 0,56" fill="#7f8fa9"/>` +
@@ -169,39 +207,5 @@
     `<polyline points="0,35 46,35 52,31 57,40 62,21 67,47 72,26 77,41 82,32 90,35 194,35" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linejoin="round"/>` +
     `<rect x="130" y="35" width="58" height="16" rx="3" fill="#c0392b"/>` + label(159, 46.8, 'M 5.6', { size: 11, anchor: 'middle' }));
 
-  // 11. Brussels: the ring of stars, and the plan set against the result, drawn to scale.
-  const brussels = () => {
-    let ring = '';
-    for (let i = 0; i < 12; i++) {
-      const a = (i * Math.PI) / 6;
-      ring += `<circle cx="${(30 + 13 * Math.cos(a)).toFixed(1)}" cy="${(37 + 13 * Math.sin(a)).toFixed(1)}" r="1.9" fill="#f2c14e"/>`;
-    }
-    return frame(194, 56,
-      `<rect width="194" height="56" fill="#1f3a8a"/>` + ring +
-      `<rect x="62" y="21" width="124" height="12" fill="#9db4e8"/>` + label(66, 30.2, '30,000 PLANNED', { size: 8.8, fill: '#10233f' }) +
-      `<rect x="62" y="38" width="5.3" height="12" fill="#f2c14e"/>` + label(72, 47.2, '1,283 IN YEAR ONE', { size: 8.8 }));
-  };
-
-  // 12. Johannesburg: storm cloud, lightning, rain on the skyline and rising water.
-  const johannesburg = () => frame(194, 56,
-    `<rect width="194" height="56" fill="#5b667d"/>` +
-    `<ellipse cx="132" cy="10" rx="38" ry="9" fill="#2f3747"/><ellipse cx="172" cy="15" rx="30" ry="8" fill="#2f3747"/><ellipse cx="44" cy="25" rx="36" ry="6.5" fill="#39425a"/>` +
-    [12, 28, 44, 60, 76, 92, 108, 124, 140, 156, 172, 188].map((x) => `<path d="M${x} 27L${x - 4} 41" stroke="#c5d3ea" stroke-width="1"/>`).join('') +
-    `<g fill="#1b2333"><rect x="58" y="31" width="10" height="17"/><rect x="70" y="27" width="8" height="21"/><rect x="80" y="34" width="12" height="14"/>` +
-    `<rect x="100" y="18" width="3.5" height="30"/><rect x="96" y="21" width="11.5" height="4" rx="2"/><rect x="150" y="32" width="10" height="16"/><rect x="162" y="28" width="9" height="20"/></g>` +
-    `<polygon points="128,16 118,32 126,32 119,47 138,27 129,27 134,16" fill="#f2c14e"/>` +
-    `<rect y="45" width="194" height="11" fill="#2a6f97"/><path d="M0 48q6 -3 12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0t12 0" stroke="#9cc9e3" stroke-width="1.1" fill="none"/>` +
-    `<polygon points="12,50 25,29 38,50" fill="#f2c14e" stroke="#1b2333" stroke-width="1.5"/>` + label(25, 47, '!', { size: 12, anchor: 'middle', fill: '#1b2333' }));
-
-  // 13. Landover: the ball through the posts and the final score.
-  const landover = () => frame(194, 56,
-    `<rect width="194" height="56" fill="#2e7d32"/>` +
-    [0, 2, 4, 6].map((i) => `<rect x="${i * 24 + 2}" width="24" height="56" fill="#338a37"/>`).join('') +
-    [1, 2, 3, 4, 5, 6, 7].map((i) => `<path d="M${i * 24 + 2} 0V56" stroke="#fff" stroke-width="1" opacity=".5"/>`).join('') +
-    `<path d="M158 56V38M142 38H174M142 38V8M174 38V8" stroke="#f2c14e" stroke-width="3" fill="none" stroke-linecap="round"/>` +
-    `<path d="M22 51Q96 2 154 21" stroke="#fff" stroke-width="1.3" stroke-dasharray="3 3" fill="none"/>` +
-    `<ellipse cx="158" cy="22" rx="5.8" ry="3.5" fill="#7a4b2a" transform="rotate(-25 158 22)"/><path d="M155.5 23.2L160.5 20.8" stroke="#fff" stroke-width=".9"/>` +
-    `<rect x="8" y="22" width="66" height="18" rx="2.5" fill="#101820"/>` + label(41, 35.6, '22–20', { size: 13.5, anchor: 'middle' }));
-
-  window.ART = { hormuz, markets, ukraine, ulleung, jiuquan, canberra, villavicencio, khanyounis, singapore, nepal, brussels, johannesburg, landover };
+  window.ART = { hormuz, markets, ukraine, senegal, huawei, gaza, uzhhorod, ulleung, jiuquan, canberra, villavicencio, singapore, nepal };
 })();
